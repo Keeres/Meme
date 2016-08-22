@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="Meme" representedClassName=".Meme" syncable="YES">
+        <attribute name="bottomText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memeImage" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
+        <attribute name="originalImage" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
+        <attribute name="topText" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Meme" positionX="-36" positionY="9" width="128" height="105"/>
+    </elements>
+</model>
