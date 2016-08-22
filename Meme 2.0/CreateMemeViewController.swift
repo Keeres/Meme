@@ -23,6 +23,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     }()
     
     let imagePicker = UIImagePickerController()
+    let defaultFontSize:CGFloat = 35.0
     var topTextView: UITextView!
     var bottomTextView: UITextView!
     var memes = [Meme]()
@@ -39,7 +40,8 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        // Enables cameraButoon if camera is detected
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
     }
     
@@ -56,7 +58,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     // MARK: Initialize TextView
     func initializeTextView(){
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        topTextView = UITextView(frame: CGRectMake(100, 100, screenSize.width*0.8, 100))
+        topTextView = UITextView(frame: CGRectMake(100, 100, screenSize.width*0.8, 75))
         topTextView.delegate = self
         defaultTextProperties(topTextView)
         topTextView.text = "TOP"
@@ -71,17 +73,13 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         self.view.addSubview(bottomTextView)
     }
     
-    func textViewGuard(textView:UITextView){
-        
-    }
-    
     func defaultTextProperties(textView:UITextView){
-        let memeAttributeString = NSAttributedString(string: " ", attributes:[NSStrokeColorAttributeName : UIColor.blackColor(),NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 35.0)!,            NSStrokeWidthAttributeName : -5.0])
+        let memeAttributeString = NSAttributedString(string: " ", attributes:[NSStrokeColorAttributeName : UIColor.blackColor(),NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: defaultFontSize)!,            NSStrokeWidthAttributeName : -5.0])
         textView.attributedText = memeAttributeString
         textView.textAlignment = NSTextAlignment.Center
         textView.textColor = UIColor.lightGrayColor()
-        textView.textContainer.maximumNumberOfLines = 2;
         textView.backgroundColor = nil
+        
         textView.hidden = false
         portraitTextViewOrientation()
         textView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth, .FlexibleBottomMargin, .FlexibleTopMargin, .FlexibleLeftMargin, .FlexibleRightMargin]
@@ -227,15 +225,31 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         if text == "\n" {
             textView.resignFirstResponder()
             // Return FALSE so that the final '\n' character doesn't get added
-            return false;
+            return false
         }
-        let currentCharacterCount = textView.text?.characters.count ?? 0
+        
+        print(textView.contentSize.height)
+        print(textView.frame.size.height)
+
+        if (textView.contentSize.height > textView.frame.size.height) {
+            var fontDecrement:CGFloat = 1.0;
+            while (textView.contentSize.height > textView.frame.size.height) {
+                print("ASDFadsf")
+                textView.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: defaultFontSize-fontDecrement)
+                fontDecrement++;
+            }
+            return true
+        }
+        
+  /*     let currentCharacterCount = textView.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false
         }
+        
         let newLength = currentCharacterCount + text.characters.count - range.length
         return newLength <= 40
-      
+      */
+        return true
     }
     
     func textViewDidEndEditing(textView: UITextView) {
@@ -252,6 +266,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     // MARK: Navigation
     // view controller is signing up to be notified when keyboard will apper
     func subscribeToKeyboardNotifications() {
+        print("ASDAFASDF")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CreateMemeViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CreateMemeViewController.keyboardWillShow(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
