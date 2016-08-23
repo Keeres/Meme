@@ -53,7 +53,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     override func viewWillDisappear(animated: Bool) {
-        unsubscribeFromKeyboardNotifications()
+       // unsubscribeFromKeyboardNotifications()
         super.viewWillDisappear(animated)
     }
     
