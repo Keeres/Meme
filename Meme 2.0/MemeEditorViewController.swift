@@ -109,11 +109,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         return meme
     }
     
-    // Save meme
-    func saveMeme(meme:Meme){
-        
-    }
-    
     // MARK: Buttons
     
     @IBAction func actionButton(sender: AnyObject) {
