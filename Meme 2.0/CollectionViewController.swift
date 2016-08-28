@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class CollectionViewController:UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITabBarControllerDelegate, CreateMemeViewControllerDelegate {
+class CollectionViewController:UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITabBarControllerDelegate,  MemeEditorViewControllerDelegate{
    
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
@@ -22,7 +22,7 @@ class CollectionViewController:UIViewController, UICollectionViewDataSource, UIC
     }()
     
     // Define Delegate Method
-    func createMemeViewControllerResponse(memes: [Meme]) {
+    func memeEditorViewControllerResponse(memes: [Meme]) {
         self.memes = memes
     }
     
@@ -46,6 +46,7 @@ class CollectionViewController:UIViewController, UICollectionViewDataSource, UIC
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.collectionView.reloadData()
         self.navigationController?.toolbarHidden = true
     }
     
@@ -58,9 +59,7 @@ class CollectionViewController:UIViewController, UICollectionViewDataSource, UIC
         
         // Create the Fetch Request
         let fetchRequest = NSFetchRequest(entityName: "Meme")
-        //    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timeStamp", ascending: false)]
-        
-        // Execute the Fetch Request
+     
         do {
             return try sharedContext.executeFetchRequest(fetchRequest) as! [Meme]
         } catch  let error as NSError {
@@ -114,7 +113,7 @@ class CollectionViewController:UIViewController, UICollectionViewDataSource, UIC
     
     //MARK: Buttons
     @IBAction func addMemeButton(sender: AnyObject) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("createMeme") as! CreateMemeViewController
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditorViewController
         controller.memes = self.memes
         controller.delegate = self
 

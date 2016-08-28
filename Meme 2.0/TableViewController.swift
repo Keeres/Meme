@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, NSFetchedResultsControllerDelegate, CreateMemeViewControllerDelegate {
+class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, NSFetchedResultsControllerDelegate, MemeEditorViewControllerDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -21,7 +21,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var memes = [Meme]()
 
     // Define Delegate Method
-    func createMemeViewControllerResponse(memes: [Meme]) {
+    func memeEditorViewControllerResponse(memes: [Meme]) {
         self.memes = memes
     }
     
@@ -97,9 +97,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } catch _ {}
             
             
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
+        } 
     }
 
     
@@ -113,7 +111,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // Button
     @IBAction func addMemeButton(sender: AnyObject) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("createMeme") as! CreateMemeViewController
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditorViewController
         controller.memes = self.memes
         controller.delegate = self
         
