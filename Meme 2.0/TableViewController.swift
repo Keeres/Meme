@@ -76,6 +76,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return true
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if (self.tableView.editing) {
             return UITableViewCellEditingStyle.Delete;
@@ -95,9 +99,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             do {
                 try self.sharedContext.save()
             } catch _ {}
-            
-            
-        } 
+        }
     }
 
     
