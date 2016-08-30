@@ -13,12 +13,14 @@ import CoreData
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, NSFetchedResultsControllerDelegate, MemeEditorViewControllerDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
     lazy var sharedContext: NSManagedObjectContext = {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }()
     
     var memes = [Meme]()
+    enum ButtonType: Int { case Edit = 0, Done }
 
     // Define Delegate Method
     func memeEditorViewControllerResponse(memes: [Meme]) {
@@ -46,10 +48,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     // MARK: Table Delgate Functions
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        let rows = memes.count
-        
-        return rows
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{        
+        return memes.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -121,6 +121,16 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func editButton(sender: AnyObject) {
-        self.tableView.setEditing(true, animated: true)
+        switch (ButtonType(rawValue: sender.tag)!) {
+        case .Edit:
+            navigationItem.leftBarButtonItem!.title = "DONE"
+            editButton.tag = 1
+            self.tableView.setEditing(true, animated: true)
+            
+        case .Done:
+            navigationItem.leftBarButtonItem!.title = "EDIT"
+            editButton.tag = 0
+            self.tableView.setEditing(false, animated: true)
+        }
     }
 }

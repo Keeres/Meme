@@ -45,8 +45,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         super.viewDidLoad()
         
         imagePicker.delegate = self
-        topTextField.delegate = self
-        bottomTextField.delegate = self
         self.navigationController?.toolbarHidden = false
         actionButton.enabled = false
 
@@ -61,21 +59,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         // Enables cameraButoon if camera is detecd
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    override func viewDidDisappear(animated: Bool) {
-    
 
-        unsubscribeFromKeyboardNotifications()
-    }
+ 
+ //   override func viewDidDisappear(animated: Bool) {
+ //       unsubscribeFromKeyboardNotifications()
+   // }
     
     // MARK: Initialize TextField
     func initializeTextField(textField: UITextField){
+        textField.delegate = self
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = NSTextAlignment.Center
     }
@@ -119,12 +111,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             //Create the meme
             _ = self.createMeme(memeImage)
             
-            NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
-            
-            do {
-                try self.sharedContext.save()
-            } catch {
-                print("save to core data failed")
+            if success{
+                NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+                
+                do {
+                    try self.sharedContext.save()
+                } catch {
+                    print("save to core data failed")
+                }
             }
         }
 
@@ -194,7 +188,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         if textField == topTextField && topTextField.text!.isEmpty{
             textField.text = "TOP"
         }else if textField == bottomTextField && bottomTextField.text!.isEmpty{
-            textField.text = "Bottom"
+            textField.text = "BOTTOM"
         }
     }
     

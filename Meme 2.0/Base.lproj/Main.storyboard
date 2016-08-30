@@ -76,13 +76,13 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uxL-C5-hUA">
                                 <rect key="frame" x="175" y="442" width="250" height="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -173,7 +173,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sent Meme" id="Mn5-r8-Rm5">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="E4L-Ae-Kzb">
+                        <barButtonItem key="leftBarButtonItem" title="EDIT" id="E4L-Ae-Kzb">
                             <connections>
                                 <action selector="editButton:" destination="tmN-g7-JEh" id="0L7-iS-b3P"/>
                             </connections>
@@ -185,6 +185,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="E4L-Ae-Kzb" id="xwD-Dd-zZg"/>
                         <outlet property="tableView" destination="hi9-qF-Vig" id="3Tf-Xf-cTD"/>
                         <segue destination="iaP-uJ-JGf" kind="show" id="pl6-f4-ixJ"/>
                     </connections>
