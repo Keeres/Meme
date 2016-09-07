@@ -1,4 +1,4 @@
-MEME 2.0
+## MEME 2.0
 
 A frist version of the app that takes pictures and overlays text to make memes out of friends, family, or pets. 
 Also allows sharing with others via social media or email and saves the memes with CoreData. The past memes my 
